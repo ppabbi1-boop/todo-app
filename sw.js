@@ -11,7 +11,7 @@
   ═══════════════════════════════════════════════════════
 */
 
-const CACHE_NAME = 'todo-app-v1';
+const CACHE_NAME = 'todo-app-v2';
 
 // The files we want to cache for offline use
 const FILES_TO_CACHE = [
