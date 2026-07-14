@@ -1,0 +1,524 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>My To-Do List</title>
+
+<!--
+  ══════════════════════════════════════════════════
+  PWA META TAGS
+  These tell the browser this app can be "installed".
+  ══════════════════════════════════════════════════
+-->
+
+<!-- Links to manifest.json — tells browser the app name, icon, colours -->
+<link rel="manifest" href="./manifest.json">
+
+<!-- The colour of the browser address bar (on mobile) -->
+<meta name="theme-color" content="#6366F1">
+
+<!-- Makes it work as a standalone app on iPhone/iPad -->
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="default">
+<meta name="apple-mobile-web-app-title" content="To-Do">
+<link rel="apple-touch-icon" href="./icon.svg">
+
+<style>
+
+:root {
+  --indigo:    #6366F1;
+  --indigo-dk: #4F46E5;
+  --bg:        #F1F5F9;
+  --white:     #FFFFFF;
+  --border:    #E2E8F0;
+  --ink:       #1E293B;
+  --muted:     #94A3B8;
+  --work:      #0EA5E9;
+  --personal:  #A855F7;
+}
+* { box-sizing: border-box; margin: 0; padding: 0; }
+body {
+  font-family: system-ui, -apple-system, sans-serif;
+  background: var(--bg);
+  min-height: 100vh;
+  padding: 40px 16px 80px;
+  /* On iOS standalone mode, add safe area padding for the notch */
+  padding-top: max(40px, env(safe-area-inset-top));
+}
+
+/* ── INSTALL BANNER ──
+   Shows a tip to install the app.
+   Dismissed automatically after clicking install. */
+.install-banner {
+  max-width: 560px; margin: 0 auto 16px;
+  background: #EEF2FF; border: 1.5px solid #C7D2FE;
+  border-radius: 14px; padding: 14px 18px;
+  display: none; /* shown by JS when install is available */
+  align-items: center; gap: 12px;
+}
+.install-banner p  { flex: 1; font-size: 13px; color: #3730A3; line-height: 1.5; }
+.install-btn {
+  background: var(--indigo); color: white; border: none;
+  border-radius: 8px; padding: 8px 16px; font-size: 13px; font-weight: 700;
+  cursor: pointer; font-family: inherit; white-space: nowrap;
+  transition: background 0.2s;
+}
+.install-btn:hover { background: var(--indigo-dk); }
+.dismiss-btn {
+  background: none; border: none; color: var(--muted);
+  font-size: 18px; cursor: pointer; line-height: 1; padding: 2px;
+}
+
+.wrapper { max-width: 560px; margin: 0 auto; display: flex; flex-direction: column; gap: 20px; }
+
+/* ── CATEGORY TABS ── */
+.cat-tabs {
+  display: flex; gap: 8px; background: white;
+  padding: 6px; border-radius: 14px;
+  box-shadow: 0 2px 12px rgba(0,0,0,0.06);
+}
+.cat-tab {
+  flex: 1; padding: 10px; border: none; border-radius: 10px;
+  font-size: 13px; font-weight: 700; cursor: pointer;
+  transition: all 0.2s; color: var(--muted); background: transparent;
+  font-family: inherit; letter-spacing: 0.02em;
+}
+.cat-tab.active[data-cat="all"]      { background: var(--indigo);   color: white; }
+.cat-tab.active[data-cat="work"]     { background: var(--work);     color: white; }
+.cat-tab.active[data-cat="personal"] { background: var(--personal); color: white; }
+.cat-tab:not(.active):hover { background: var(--bg); color: var(--ink); }
+
+/* ── APP CARD ── */
+.app { background: white; border-radius: 20px; box-shadow: 0 4px 32px rgba(0,0,0,0.08); overflow: hidden; }
+
+/* ── HEADER ── */
+.header {
+  padding: 24px 24px 20px; color: white;
+  display: flex; align-items: center; justify-content: space-between; gap: 12px;
+  transition: background 0.3s;
+}
+.header.all      { background: linear-gradient(135deg, var(--indigo-dk), var(--indigo)); }
+.header.work     { background: linear-gradient(135deg, #0284C7, var(--work)); }
+.header.personal { background: linear-gradient(135deg, #9333EA, var(--personal)); }
+.header-left h1  { font-size: 20px; font-weight: 800; letter-spacing: -0.02em; }
+.task-count      { font-size: 12px; opacity: 0.75; margin-top: 2px; }
+.sort-btn {
+  background: rgba(255,255,255,0.2); border: 1px solid rgba(255,255,255,0.3);
+  color: white; border-radius: 8px; padding: 7px 12px;
+  font-size: 11px; font-weight: 700; cursor: pointer; white-space: nowrap;
+  transition: background 0.15s; font-family: inherit; letter-spacing: 0.03em;
+}
+.sort-btn:hover { background: rgba(255,255,255,0.3); }
+
+/* ── ADD FORM ── */
+.add-form { padding: 16px 20px 14px; border-bottom: 1px solid var(--bg); }
+.input-row { display: flex; gap: 8px; margin-bottom: 10px; }
+.input-row input[type="text"] {
+  flex: 1; border: 1.5px solid var(--border); border-radius: 10px;
+  padding: 10px 14px; font-size: 14px; outline: none;
+  font-family: inherit; color: var(--ink); transition: border-color 0.2s;
+}
+.input-row input[type="text"]:focus { border-color: var(--indigo); }
+.add-btn {
+  background: var(--indigo); color: white; border: none; border-radius: 10px;
+  padding: 10px 18px; font-size: 14px; font-weight: 700; cursor: pointer;
+  transition: background 0.2s, transform 0.1s; font-family: inherit; white-space: nowrap;
+}
+.add-btn:hover  { background: var(--indigo-dk); }
+.add-btn:active { transform: scale(0.97); }
+.options-row { display: flex; align-items: center; gap: 8px; flex-wrap: wrap; }
+.pri-group, .cat-group { display: flex; gap: 4px; }
+.pri-btn, .cat-btn {
+  padding: 4px 10px; border-radius: 100px; font-size: 11px; font-weight: 700;
+  border: 1.5px solid var(--border); cursor: pointer; transition: all 0.15s;
+  color: var(--muted); background: none; font-family: inherit;
+}
+.pri-btn.active[data-priority="high"]   { background: #FEF2F2; color: #DC2626; border-color: #FCA5A5; }
+.pri-btn.active[data-priority="medium"] { background: #FFFBEB; color: #D97706; border-color: #FCD34D; }
+.pri-btn.active[data-priority="low"]    { background: #F8FAFC; color: #64748B; border-color: #CBD5E1; }
+.cat-btn.active[data-cat="work"]     { background: #E0F2FE; color: #0284C7; border-color: #7DD3FC; }
+.cat-btn.active[data-cat="personal"] { background: #FAF5FF; color: #9333EA; border-color: #D8B4FE; }
+.pri-btn:not(.active):hover, .cat-btn:not(.active):hover { background: var(--bg); color: var(--ink); }
+input[type="date"] {
+  border: 1.5px solid var(--border); border-radius: 8px;
+  padding: 4px 10px; font-size: 11px; font-family: inherit; color: var(--ink);
+  outline: none; cursor: pointer; transition: border-color 0.2s; background: white;
+}
+input[type="date"]:focus { border-color: var(--indigo); }
+
+/* ── TASK LIST ── */
+#taskList { list-style: none; padding: 6px 0; min-height: 60px; }
+.task {
+  display: flex; align-items: center; gap: 10px;
+  padding: 11px 20px; border-bottom: 1px solid #FAFBFC;
+  transition: background 0.15s; position: relative;
+}
+.task:hover { background: #FAFBFF; }
+.task:last-child { border-bottom: none; }
+.drag-handle {
+  color: #CBD5E1; font-size: 16px; cursor: grab;
+  padding: 0 2px; user-select: none; flex-shrink: 0; line-height: 1;
+  transition: color 0.15s;
+}
+.task:hover .drag-handle { color: #94A3B8; }
+.drag-handle:active { cursor: grabbing; }
+.task input[type="checkbox"] {
+  appearance: none; width: 20px; height: 20px;
+  border: 2px solid #CBD5E1; border-radius: 50%; cursor: pointer;
+  flex-shrink: 0; transition: all 0.2s; position: relative;
+}
+.task input[type="checkbox"]:checked { background: var(--indigo); border-color: var(--indigo); }
+.task input[type="checkbox"]:checked::after {
+  content: '✓'; position: absolute; color: white;
+  font-size: 11px; font-weight: 800;
+  top: 50%; left: 50%; transform: translate(-50%, -50%);
+}
+.task-text { flex: 1; font-size: 14px; color: var(--ink); line-height: 1.4; }
+.task.done .task-text { text-decoration: line-through; color: var(--muted); }
+.cat-dot { width: 7px; height: 7px; border-radius: 50%; flex-shrink: 0; }
+.cat-dot.work     { background: var(--work); }
+.cat-dot.personal { background: var(--personal); }
+.pri-badge {
+  font-size: 10px; font-weight: 800; padding: 2px 8px;
+  border-radius: 100px; letter-spacing: 0.04em; white-space: nowrap; flex-shrink: 0;
+  cursor: pointer; transition: transform 0.15s, box-shadow 0.15s; user-select: none;
+}
+.pri-badge:hover { transform: scale(1.08); box-shadow: 0 2px 6px rgba(0,0,0,0.12); }
+.due-badge {
+  font-size: 11px; font-weight: 700; padding: 2px 8px;
+  border-radius: 100px; white-space: nowrap; flex-shrink: 0;
+}
+.due-badge.overdue  { background: #FEF2F2; color: #DC2626; }
+.due-badge.today    { background: #FFF7ED; color: #EA580C; }
+.due-badge.soon     { background: #FFFBEB; color: #D97706; }
+.due-badge.upcoming { background: #EFF6FF; color: #2563EB; }
+.due-badge.future   { background: #F8FAFC; color: #64748B; }
+.del-btn {
+  opacity: 0; background: none; border: none; color: var(--muted);
+  font-size: 14px; cursor: pointer; padding: 3px 6px; border-radius: 6px;
+  transition: opacity 0.15s, color 0.15s, background 0.15s; line-height: 1; flex-shrink: 0;
+}
+.task:hover .del-btn { opacity: 1; }
+.del-btn:hover { color: #EF4444; background: #FEE2E2; }
+.task.dragging  { opacity: 0.4; }
+.task.drag-over { border-top: 2px solid var(--indigo); background: #EEF2FF; }
+.empty { text-align: center; padding: 44px 20px; color: var(--muted); font-size: 13px; }
+.empty-icon { font-size: 32px; margin-bottom: 10px; }
+
+/* ── FOOTER ── */
+.footer {
+  display: flex; align-items: center; justify-content: space-between;
+  padding: 12px 20px 16px; border-top: 1px solid var(--bg); gap: 8px; flex-wrap: wrap;
+}
+.filters { display: flex; gap: 4px; }
+.filter-btn {
+  background: none; border: 1.5px solid transparent; border-radius: 8px;
+  padding: 5px 12px; font-size: 12px; font-weight: 600; color: var(--muted);
+  cursor: pointer; transition: all 0.15s; font-family: inherit;
+}
+.filter-btn:hover { color: var(--indigo); background: #EEF2FF; }
+.filter-btn.active { color: var(--indigo); border-color: #C7D2FE; background: #EEF2FF; }
+.clear-btn {
+  background: none; border: none; font-size: 12px; color: var(--muted);
+  cursor: pointer; padding: 5px 8px; border-radius: 6px; font-family: inherit;
+  transition: color 0.15s;
+}
+.clear-btn:hover { color: #EF4444; }
+
+@keyframes slideIn { from { opacity:0; transform:translateY(-6px); } to { opacity:1; transform:translateY(0); } }
+.task { animation: slideIn 0.18s ease-out; }
+@media (prefers-reduced-motion: reduce) { .task { animation: none; } }
+
+</style>
+</head>
+<body>
+
+<!-- ── INSTALL BANNER ───────────────────────────────
+     Shown automatically when the browser detects
+     the app can be installed. Disappears after install.
+──────────────────────────────────────────────────── -->
+<div class="install-banner" id="installBanner">
+  <p>📲 <strong>Install this app</strong> for quick access from your desktop or home screen.</p>
+  <button class="install-btn" id="installBtn">Install</button>
+  <button class="dismiss-btn" id="dismissBtn" title="Dismiss">✕</button>
+</div>
+
+<div class="wrapper">
+
+  <div class="cat-tabs">
+    <button class="cat-tab active" data-cat="all"      onclick="setCategory('all')">📋 All</button>
+    <button class="cat-tab"        data-cat="work"      onclick="setCategory('work')">💼 Work</button>
+    <button class="cat-tab"        data-cat="personal"  onclick="setCategory('personal')">🏠 Personal</button>
+  </div>
+
+  <div class="app">
+    <div class="header all" id="appHeader">
+      <div class="header-left">
+        <h1 id="headerTitle">My To-Do List</h1>
+        <div class="task-count" id="taskCount">0 tasks left</div>
+      </div>
+      <button class="sort-btn" onclick="sortByPriority()">↑↓ Sort by priority</button>
+    </div>
+
+    <div class="add-form">
+      <div class="input-row">
+        <input type="text" id="taskInput" placeholder="What needs doing?" maxlength="200"/>
+        <button class="add-btn" onclick="addTask()">Add</button>
+      </div>
+      <div class="options-row">
+        <div class="cat-group">
+          <button class="cat-btn active" data-cat="work"     onclick="selectNewCat('work')">💼 Work</button>
+          <button class="cat-btn"        data-cat="personal" onclick="selectNewCat('personal')">🏠 Personal</button>
+        </div>
+        <span style="color:#CBD5E1;font-size:16px;">·</span>
+        <div class="pri-group">
+          <button class="pri-btn"        data-priority="high"   onclick="selectPriority('high')">🔴 High</button>
+          <button class="pri-btn active" data-priority="medium" onclick="selectPriority('medium')">🟡 Med</button>
+          <button class="pri-btn"        data-priority="low"    onclick="selectPriority('low')">⚪ Low</button>
+        </div>
+        <span style="color:#CBD5E1;font-size:16px;">·</span>
+        <input type="date" id="dueDate" title="Set due date"/>
+      </div>
+    </div>
+
+    <ul id="taskList"></ul>
+
+    <div class="footer">
+      <div class="filters">
+        <button class="filter-btn active" id="filter-all"    onclick="setFilter('all')">All</button>
+        <button class="filter-btn"        id="filter-active" onclick="setFilter('active')">Active</button>
+        <button class="filter-btn"        id="filter-done"   onclick="setFilter('done')">Done</button>
+      </div>
+      <button class="clear-btn" onclick="clearDone()">Clear completed</button>
+    </div>
+  </div>
+</div>
+
+
+<script>
+
+// ── Config ────────────────────────────────────────────
+const PRIORITIES = {
+  high:   { label: 'High', color: '#DC2626', bg: '#FEF2F2', border: '#FCA5A5', order: 1 },
+  medium: { label: 'Med',  color: '#D97706', bg: '#FFFBEB', border: '#FCD34D', order: 2 },
+  low:    { label: 'Low',  color: '#94A3B8', bg: '#F8FAFC', border: '#E2E8F0', order: 3 }
+};
+const CATEGORIES = {
+  all:      { title: 'My To-Do List',  cls: 'all' },
+  work:     { title: 'Work Tasks',     cls: 'work' },
+  personal: { title: 'Personal Tasks', cls: 'personal' }
+};
+
+// ── State ─────────────────────────────────────────────
+let tasks        = JSON.parse(localStorage.getItem('tasks_pwa')) || [];
+let statusFilter = 'all';
+let catFilter    = 'all';
+let newPriority  = 'medium';
+let newCategory  = 'work';
+let dragId       = null;
+
+function save() { localStorage.setItem('tasks_pwa', JSON.stringify(tasks)); }
+
+// ── Task operations ───────────────────────────────────
+function addTask() {
+  const input = document.getElementById('taskInput');
+  const date  = document.getElementById('dueDate');
+  const text  = input.value.trim();
+  if (!text) return;
+  tasks.push({ id: Date.now(), text, done: false, priority: newPriority, category: newCategory, dueDate: date.value || null });
+  input.value = ''; date.value = ''; input.focus();
+  save(); render();
+}
+
+function toggleTask(id) {
+  const t = tasks.find(t => t.id === id);
+  if (t) { t.done = !t.done; save(); render(); }
+}
+
+function deleteTask(id) {
+  tasks = tasks.filter(t => t.id !== id); save(); render();
+}
+
+function clearDone() {
+  tasks = tasks.filter(t => !t.done); save(); render();
+}
+
+function changePriority(id) {
+  const t = tasks.find(t => t.id === id);
+  if (!t) return;
+  const cycle = ['high', 'medium', 'low'];
+  t.priority = cycle[(cycle.indexOf(t.priority || 'medium') + 1) % cycle.length];
+  save(); render();
+}
+
+function sortByPriority() {
+  tasks.sort((a, b) => (PRIORITIES[a.priority]?.order ?? 3) - (PRIORITIES[b.priority]?.order ?? 3));
+  save(); render();
+}
+
+// ── Filters ───────────────────────────────────────────
+function setCategory(cat) {
+  catFilter = cat;
+  document.querySelectorAll('.cat-tab').forEach(b => b.classList.toggle('active', b.dataset.cat === cat));
+  const h = document.getElementById('appHeader');
+  h.className = 'header ' + CATEGORIES[cat].cls;
+  document.getElementById('headerTitle').textContent = CATEGORIES[cat].title;
+  render();
+}
+
+function setFilter(f) {
+  statusFilter = f;
+  document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
+  document.getElementById('filter-' + f).classList.add('active');
+  render();
+}
+
+function selectPriority(p) {
+  newPriority = p;
+  document.querySelectorAll('.pri-btn').forEach(b => b.classList.toggle('active', b.dataset.priority === p));
+}
+
+function selectNewCat(c) {
+  newCategory = c;
+  document.querySelectorAll('.cat-btn').forEach(b => b.classList.toggle('active', b.dataset.cat === c));
+}
+
+// ── Drag and drop ─────────────────────────────────────
+function dragStart(e, id) {
+  dragId = id;
+  e.dataTransfer.effectAllowed = 'move';
+  setTimeout(() => document.querySelector(`[data-id="${id}"]`)?.classList.add('dragging'), 0);
+}
+function dragEnd() {
+  document.querySelectorAll('.task').forEach(el => el.classList.remove('dragging', 'drag-over'));
+}
+function dragOver(e, id) {
+  e.preventDefault();
+  if (id === dragId) return;
+  document.querySelectorAll('.task').forEach(el => el.classList.remove('drag-over'));
+  e.currentTarget.classList.add('drag-over');
+}
+function dragLeave(e) { e.currentTarget.classList.remove('drag-over'); }
+function drop(e, targetId) {
+  e.preventDefault();
+  e.currentTarget.classList.remove('drag-over');
+  if (!dragId || dragId === targetId) return;
+  const fi = tasks.findIndex(t => t.id === dragId);
+  const ti = tasks.findIndex(t => t.id === targetId);
+  const [m] = tasks.splice(fi, 1);
+  tasks.splice(ti, 0, m);
+  dragId = null;
+  save(); render();
+}
+
+// ── Due date display ──────────────────────────────────
+function formatDue(d) {
+  if (!d) return null;
+  const due = new Date(d + 'T00:00:00');
+  const now = new Date(); now.setHours(0,0,0,0);
+  const diff = Math.round((due - now) / 86400000);
+  if (diff < 0)   return { label: `${Math.abs(diff)}d overdue`, cls: 'overdue' };
+  if (diff === 0) return { label: 'Today',           cls: 'today' };
+  if (diff === 1) return { label: 'Tomorrow',        cls: 'soon' };
+  if (diff <= 7)  return { label: `In ${diff} days`, cls: 'upcoming' };
+  return { label: due.toLocaleDateString('en-GB', { day:'numeric', month:'short' }), cls: 'future' };
+}
+
+// ── Render ────────────────────────────────────────────
+function render() {
+  const list = document.getElementById('taskList');
+  const visible = tasks.filter(t => {
+    const mc = catFilter === 'all' || t.category === catFilter;
+    const ms = statusFilter === 'all' || (statusFilter === 'active' && !t.done) || (statusFilter === 'done' && t.done);
+    return mc && ms;
+  });
+
+  if (!visible.length) {
+    const icon = statusFilter === 'done' ? '✅' : catFilter === 'work' ? '💼' : catFilter === 'personal' ? '🏠' : '📋';
+    const msg  = statusFilter === 'done' ? 'Nothing completed yet' : statusFilter === 'active' ? 'No active tasks — nice!' : catFilter !== 'all' ? `No ${catFilter} tasks yet` : 'Add a task above to get started';
+    list.innerHTML = `<li class="empty"><div class="empty-icon">${icon}</div>${msg}</li>`;
+  } else {
+    list.innerHTML = visible.map(task => {
+      const p = PRIORITIES[task.priority] || PRIORITIES.medium;
+      const due = formatDue(task.dueDate);
+      return `<li class="task ${task.done ? 'done' : ''}" data-id="${task.id}"
+        draggable="true"
+        ondragstart="dragStart(event,${task.id})" ondragend="dragEnd()"
+        ondragover="dragOver(event,${task.id})" ondragleave="dragLeave(event)" ondrop="drop(event,${task.id})"
+      >
+        <span class="drag-handle" title="Drag to reorder">⠿</span>
+        <input type="checkbox" ${task.done ? 'checked' : ''} onchange="toggleTask(${task.id})"/>
+        <span class="task-text">${escapeHtml(task.text)}</span>
+        <span class="cat-dot ${task.category||''}"></span>
+        <span class="pri-badge" style="color:${p.color};background:${p.bg};border:1px solid ${p.border}" onclick="changePriority(${task.id})" title="Click to change priority">${p.label}</span>
+        ${due ? `<span class="due-badge ${due.cls}">${due.label}</span>` : ''}
+        <button class="del-btn" onclick="deleteTask(${task.id})" title="Delete">✕</button>
+      </li>`;
+    }).join('');
+  }
+
+  const rem = tasks.filter(t => !t.done && (catFilter === 'all' || t.category === catFilter)).length;
+  document.getElementById('taskCount').textContent = `${rem} task${rem !== 1 ? 's' : ''} left`;
+}
+
+function escapeHtml(s) {
+  return s.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');
+}
+
+document.getElementById('taskInput').addEventListener('keydown', e => { if (e.key === 'Enter') addTask(); });
+render();
+
+
+/*
+  ══════════════════════════════════════════════════════
+  PWA — SERVICE WORKER + INSTALL PROMPT
+  ══════════════════════════════════════════════════════
+*/
+
+// 1. Register the service worker (enables offline mode)
+if ('serviceWorker' in navigator) {
+  window.addEventListener('load', () => {
+    navigator.serviceWorker.register('./sw.js')
+      .then(reg  => console.log('Service worker registered:', reg.scope))
+      .catch(err => console.warn('Service worker failed:', err));
+  });
+}
+
+// 2. Intercept the browser's "install" prompt
+//    so we can show our own Install button instead
+let installPrompt = null;
+
+window.addEventListener('beforeinstallprompt', e => {
+  // Stop the browser showing its own mini banner
+  e.preventDefault();
+  installPrompt = e;
+
+  // Show our custom install banner
+  document.getElementById('installBanner').style.display = 'flex';
+});
+
+// 3. When the user clicks our Install button, trigger the prompt
+document.getElementById('installBtn').addEventListener('click', async () => {
+  if (!installPrompt) return;
+  installPrompt.prompt();
+  const { outcome } = await installPrompt.userChoice;
+  if (outcome === 'accepted') {
+    document.getElementById('installBanner').style.display = 'none';
+  }
+  installPrompt = null;
+});
+
+// 4. Dismiss button hides the banner without installing
+document.getElementById('dismissBtn').addEventListener('click', () => {
+  document.getElementById('installBanner').style.display = 'none';
+});
+
+// 5. Hide the banner if the app is already installed
+window.addEventListener('appinstalled', () => {
+  document.getElementById('installBanner').style.display = 'none';
+});
+
+</script>
+</body>
+</html>
