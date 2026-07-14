@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en" data-theme="dark">
+<html lang="en" data-theme="light">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -22,16 +22,30 @@
    ══════════════════════════════════════════════ */
 [data-theme="dark"] {
   color-scheme: dark;
-  --bg:#09091A; --surface:#111128; --surface-2:#18183A;
-  --border:rgba(255,255,255,0.07); --border-hi:rgba(255,255,255,0.14);
-  --ink:#E8E8FF; --muted:#5A5A8A; --faint:#2A2A50;
-  --bg-g1:rgba(99,102,241,0.08); --bg-g2:rgba(192,132,252,0.06);
-  --accent:#818CF8; --accent-dk:#6366F1; --accent-glow:rgba(129,140,248,0.18);
-  --accent-t1:#C7D2FE; --accent-t2:#818CF8;
-  --work:#38BDF8; --work-glow:rgba(56,189,248,0.15);
-  --personal:#C084FC; --personal-glow:rgba(192,132,252,0.15);
-  --card-shadow:none; --input-bg:#18183A;
-  --header-tint:rgba(99,102,241,0.12); --header-work:rgba(56,189,248,0.10); --header-personal:rgba(192,132,252,0.10);
+  --bg: #111118;
+  --surface: #1C1C26;
+  --surface-2: #252530;
+  --border: rgba(255,255,255,0.09);
+  --border-hi: rgba(255,255,255,0.17);
+  --ink: #F0F0F8;
+  --muted: #9090B8;
+  --faint: #30303F;
+  --bg-g1: rgba(99,102,241,0.07);
+  --bg-g2: rgba(139,92,246,0.05);
+  --accent: #818CF8;
+  --accent-dk: #6366F1;
+  --accent-glow: rgba(129,140,248,0.22);
+  --accent-t1: #C7D2FE;
+  --accent-t2: #818CF8;
+  --work: #38BDF8;
+  --work-glow: rgba(56,189,248,0.18);
+  --personal: #C084FC;
+  --personal-glow: rgba(192,132,252,0.18);
+  --card-shadow: 0 4px 24px rgba(0,0,0,0.5);
+  --input-bg: #252530;
+  --header-tint: rgba(99,102,241,0.12);
+  --header-work: rgba(56,189,248,0.10);
+  --header-personal: rgba(192,132,252,0.10);
 }
 [data-theme="light"] {
   color-scheme:light;
@@ -46,58 +60,7 @@
   --card-shadow:0 2px 20px rgba(0,0,0,0.07); --input-bg:#F1F5F9;
   --header-tint:rgba(99,102,241,0.05); --header-work:rgba(14,165,233,0.05); --header-personal:rgba(168,85,247,0.05);
 }
-[data-theme="sage"] {
-  color-scheme:light;
-  --bg:#EFF5EF; --surface:#FFFFFF; --surface-2:#E4EFE4;
-  --border:rgba(0,0,0,0.08); --border-hi:rgba(0,0,0,0.13);
-  --ink:#1A2B1C; --muted:#6B8F72; --faint:#BDD4C0;
-  --bg-g1:rgba(72,130,85,0.10); --bg-g2:rgba(52,110,65,0.06);
-  --accent:#3D8B5A; --accent-dk:#2D6B44; --accent-glow:rgba(61,139,90,0.18);
-  --accent-t1:#4CAF72; --accent-t2:#2D6B44;
-  --work:#1A7A58; --work-glow:rgba(26,122,88,0.12);
-  --personal:#7C3AED; --personal-glow:rgba(124,58,237,0.12);
-  --card-shadow:0 2px 20px rgba(0,0,0,0.07); --input-bg:#E4EFE4;
-  --header-tint:rgba(61,139,90,0.07); --header-work:rgba(26,122,88,0.06); --header-personal:rgba(124,58,237,0.06);
-}
-[data-theme="lilac"] {
-  color-scheme:light;
-  --bg:#F7F2FF; --surface:#FFFFFF; --surface-2:#EFE6FF;
-  --border:rgba(0,0,0,0.07); --border-hi:rgba(0,0,0,0.11);
-  --ink:#2A1550; --muted:#8B6EC0; --faint:#D8C8F4;
-  --bg-g1:rgba(139,92,246,0.10); --bg-g2:rgba(167,139,250,0.07);
-  --accent:#7C3AED; --accent-dk:#6D28D9; --accent-glow:rgba(124,58,237,0.18);
-  --accent-t1:#A78BFA; --accent-t2:#7C3AED;
-  --work:#6366F1; --work-glow:rgba(99,102,241,0.12);
-  --personal:#EC4899; --personal-glow:rgba(236,72,153,0.12);
-  --card-shadow:0 2px 20px rgba(100,60,180,0.08); --input-bg:#EFE6FF;
-  --header-tint:rgba(124,58,237,0.07); --header-work:rgba(99,102,241,0.06); --header-personal:rgba(236,72,153,0.06);
-}
-[data-theme="blue"] {
-  color-scheme:light;
-  --bg:#EEF5FF; --surface:#FFFFFF; --surface-2:#E0ECFF;
-  --border:rgba(0,0,0,0.07); --border-hi:rgba(0,0,0,0.11);
-  --ink:#0A1D3B; --muted:#4D7AB0; --faint:#B8D0EE;
-  --bg-g1:rgba(37,99,235,0.10); --bg-g2:rgba(14,165,233,0.07);
-  --accent:#2563EB; --accent-dk:#1D4ED8; --accent-glow:rgba(37,99,235,0.18);
-  --accent-t1:#60A5FA; --accent-t2:#2563EB;
-  --work:#0EA5E9; --work-glow:rgba(14,165,233,0.12);
-  --personal:#8B5CF6; --personal-glow:rgba(139,92,246,0.12);
-  --card-shadow:0 2px 20px rgba(10,40,100,0.07); --input-bg:#E0ECFF;
-  --header-tint:rgba(37,99,235,0.07); --header-work:rgba(14,165,233,0.06); --header-personal:rgba(139,92,246,0.06);
-}
-[data-theme="pink"] {
-  color-scheme:light;
-  --bg:#FFF2F8; --surface:#FFFFFF; --surface-2:#FFE4F3;
-  --border:rgba(0,0,0,0.07); --border-hi:rgba(0,0,0,0.11);
-  --ink:#3D0A22; --muted:#C0699A; --faint:#F0C0DA;
-  --bg-g1:rgba(219,39,119,0.10); --bg-g2:rgba(244,114,182,0.07);
-  --accent:#DB2777; --accent-dk:#BE185D; --accent-glow:rgba(219,39,119,0.18);
-  --accent-t1:#F9A8D4; --accent-t2:#DB2777;
-  --work:#F43F5E; --work-glow:rgba(244,63,94,0.12);
-  --personal:#A855F7; --personal-glow:rgba(168,85,247,0.12);
-  --card-shadow:0 2px 20px rgba(180,30,90,0.07); --input-bg:#FFE4F3;
-  --header-tint:rgba(219,39,119,0.07); --header-work:rgba(244,63,94,0.06); --header-personal:rgba(168,85,247,0.06);
-}
+
 :root {
   --high:#F87171; --high-bg:rgba(248,113,113,0.12); --high-glow:rgba(248,113,113,0.28);
   --med:#FBBF24;  --med-bg:rgba(251,191,36,0.12);   --med-glow:rgba(251,191,36,0.22);
@@ -136,6 +99,50 @@ body {
   cursor:pointer; font-family:inherit; white-space:nowrap; box-shadow:0 2px 10px var(--accent-glow);
 }
 .dismiss-btn { background:none; border:none; color:var(--muted); font-size:18px; cursor:pointer; line-height:1; padding:2px; }
+
+/* ── SYNC BAR ── */
+.sync-bar {
+  background:var(--surface); border:1px solid var(--border);
+  border-radius:14px; padding:8px 14px;
+  display:flex; align-items:center; gap:8px;
+  box-shadow:var(--card-shadow); overflow:hidden; transition:background 0.35s;
+}
+.sync-dot {
+  width:7px; height:7px; border-radius:50%; flex-shrink:0;
+  background:var(--faint); transition:background 0.3s;
+}
+.sync-dot.connected   { background:var(--green); box-shadow:0 0 6px var(--green-glow); }
+.sync-dot.syncing     { background:var(--med);   animation:syncPulse 0.9s ease-in-out infinite; }
+.sync-dot.error       { background:var(--high); }
+@keyframes syncPulse { 0%,100% { opacity:1; } 50% { opacity:0.35; } }
+.sync-bar-label { font-size:10px; font-weight:700; color:var(--muted); letter-spacing:0.06em; flex-shrink:0; }
+.sync-code {
+  flex:1; font-family:ui-monospace,monospace; font-size:12px; font-weight:700;
+  color:var(--ink); letter-spacing:0.04em; overflow:hidden; text-overflow:ellipsis; white-space:nowrap;
+}
+.sync-action-btn {
+  background:rgba(128,128,128,0.08); border:1px solid var(--border-hi);
+  color:var(--muted); border-radius:7px; padding:4px 10px; font-size:11px; font-weight:700;
+  cursor:pointer; font-family:inherit; white-space:nowrap; transition:all 0.15s; flex-shrink:0;
+}
+.sync-action-btn:hover { background:rgba(128,128,128,0.14); color:var(--ink); }
+.sync-connect-btn { background:var(--accent-glow); color:var(--accent); border-color:var(--accent); }
+.sync-connect-btn:hover { background:var(--accent); color:white; }
+.sync-panel {
+  background:var(--surface); border:1px solid var(--border);
+  border-radius:14px; padding:12px 14px;
+  display:flex; flex-direction:column; gap:10px;
+  box-shadow:var(--card-shadow); animation:slideIn 0.15s ease-out;
+}
+.sync-hint { font-size:12px; color:var(--muted); line-height:1.5; }
+.sync-hint strong { color:var(--high); }
+.sync-panel-row { display:flex; align-items:center; gap:7px; }
+.sync-code-input {
+  flex:1; background:var(--input-bg); border:1px solid var(--border-hi);
+  border-radius:8px; padding:7px 11px; font-size:13px; font-family:ui-monospace,monospace;
+  color:var(--ink); outline:none; transition:border-color 0.2s;
+}
+.sync-code-input:focus { border-color:var(--accent); box-shadow:0 0 0 3px var(--accent-glow); }
 
 /* ── THEME BAR ── */
 .theme-bar {
@@ -233,10 +240,40 @@ body {
 }
 .add-btn:hover { opacity:0.88; }
 .add-btn:active { transform:scale(0.97); }
-.options-row { display:flex; align-items:center; gap:7px; flex-wrap:wrap; }
-.options-row + .options-row { margin-top:8px; }
-.divider-dot { color:var(--faint); }
-.cat-group { display:flex; gap:4px; }
+.mic-btn {
+  background:var(--input-bg); border:1px solid var(--border-hi);
+  border-radius:10px; padding:10px 13px; font-size:16px; cursor:pointer;
+  flex-shrink:0; transition:all 0.15s; line-height:1;
+}
+.mic-btn:hover { background:rgba(128,128,128,0.12); }
+.mic-btn.listening {
+  background:rgba(248,113,113,0.15); border-color:var(--high);
+  animation:micPulse 0.8s ease-in-out infinite;
+}
+@keyframes micPulse {
+  0%,100% { box-shadow:0 0 0 0 rgba(248,113,113,0.4); }
+  50%      { box-shadow:0 0 0 7px rgba(248,113,113,0); }
+}
+.options-row {
+  display:flex; align-items:center; gap:6px;
+  overflow-x:auto; -webkit-overflow-scrolling:touch;
+  scrollbar-width:none; padding-bottom:1px;
+}
+.options-row::-webkit-scrollbar { display:none; }
+.opt-sep { width:1px; height:14px; background:var(--border-hi); flex-shrink:0; }
+.opt-select {
+  appearance:none; -webkit-appearance:none;
+  background:var(--input-bg); border:1px solid var(--border-hi);
+  border-radius:8px; padding:5px 26px 5px 9px; font-size:11px; font-weight:700;
+  color:var(--ink); font-family:inherit; outline:none; cursor:pointer;
+  background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='10' height='6' viewBox='0 0 10 6'%3E%3Cpath d='M0 0l5 6 5-6z' fill='%2394A3B8'/%3E%3C/svg%3E");
+  background-repeat:no-repeat; background-position:right 7px center; background-size:8px 5px;
+  flex-shrink:0; transition:border-color 0.2s; white-space:nowrap;
+}
+.opt-select:focus { border-color:var(--accent); }
+.opt-select option { background:var(--surface); color:var(--ink); }
+[data-theme="dark"] .opt-select { color-scheme:dark; }
+.cat-lbl { font-size:11px; }
 .cat-btn, .rec-btn {
   padding:5px 10px; border-radius:100px; font-size:11px; font-weight:700;
   border:1px solid var(--border-hi); cursor:pointer; color:var(--muted); background:none;
@@ -458,6 +495,10 @@ li.task-item, .archive-task { animation:slideIn 0.2s ease-out; }
   .options-row { gap:5px; }
   .cat-btn, .rec-btn, .edit-rec-btn { padding:4px 8px; font-size:10px; }
   .theme-bar-label { display:none; }
+  .cat-btn { padding:6px 10px; }
+  .filter-btn { padding:7px 10px; }
+  .add-btn { padding:10px 14px; }
+  .cat-lbl { display:none; } /* show just emoji on small screens */
 }
 </style>
 </head>
@@ -471,16 +512,29 @@ li.task-item, .archive-task { animation:slideIn 0.2s ease-out; }
     <button class="dismiss-btn" onclick="dismissBanner()">✕</button>
   </div>
 
+  <!-- SYNC BAR -->
+  <div class="sync-bar" id="syncBar">
+    <span class="sync-dot" id="syncDot"></span>
+    <span class="sync-bar-label">SYNC</span>
+    <code class="sync-code" id="syncCodeDisplay">—</code>
+    <button class="sync-action-btn" id="syncCopyBtn" onclick="copySyncCode()">Copy</button>
+    <button class="sync-action-btn" onclick="toggleSyncPanel()">Change</button>
+  </div>
+  <div class="sync-panel" id="syncPanel" style="display:none">
+    <p class="sync-hint">Enter the sync code from another device to share tasks across both. <strong>This will replace tasks on this device.</strong></p>
+    <div class="sync-panel-row">
+      <input type="text" id="syncCodeInput" class="sync-code-input" placeholder="e.g. abc-xyz-123" autocomplete="off" autocapitalize="none" spellcheck="false"/>
+      <button class="sync-action-btn sync-connect-btn" onclick="applySyncCode()">Connect</button>
+      <button class="sync-action-btn" onclick="toggleSyncPanel()">Cancel</button>
+    </div>
+  </div>
+
   <!-- THEME SWITCHER -->
   <div class="theme-bar">
     <span class="theme-bar-label">THEME</span>
     <div class="theme-pills">
-      <button class="tpill active" data-theme="dark"  onclick="setTheme('dark')"><span class="tpill-dot" style="background:#09091A;outline:1.5px solid #818CF8;outline-offset:1px"></span>Dark</button>
-      <button class="tpill" data-theme="light" onclick="setTheme('light')"><span class="tpill-dot" style="background:#F8FAFC;outline:1.5px solid #CBD5E1;outline-offset:1px"></span>Light</button>
-      <button class="tpill" data-theme="sage"  onclick="setTheme('sage')"><span class="tpill-dot" style="background:#3D8B5A"></span>Sage</button>
-      <button class="tpill" data-theme="lilac" onclick="setTheme('lilac')"><span class="tpill-dot" style="background:#7C3AED"></span>Lilac</button>
-      <button class="tpill" data-theme="blue"  onclick="setTheme('blue')"><span class="tpill-dot" style="background:#2563EB"></span>Blue</button>
-      <button class="tpill" data-theme="pink"  onclick="setTheme('pink')"><span class="tpill-dot" style="background:#DB2777"></span>Pink</button>
+      <button class="tpill active" data-theme="light" onclick="setTheme('light')"><span class="tpill-dot" style="background:#F8FAFC;outline:1.5px solid #CBD5E1;outline-offset:1px"></span>Light</button>
+      <button class="tpill" data-theme="dark" onclick="setTheme('dark')"><span class="tpill-dot" style="background:#1C1C26;outline:1.5px solid #818CF8;outline-offset:1px"></span>Dark</button>
     </div>
   </div>
 
@@ -512,30 +566,27 @@ li.task-item, .archive-task { animation:slideIn 0.2s ease-out; }
       <div class="add-form">
         <div class="input-row">
           <input type="text" id="taskInput" placeholder="What needs doing?" maxlength="200" autocomplete="off"/>
+          <button class="mic-btn" id="micBtn" onclick="startDictation()" title="Voice input">🎤</button>
           <button class="add-btn" onclick="addTask()">Add</button>
         </div>
         <div class="options-row">
-          <div class="cat-group">
-            <button class="cat-btn active" data-cat="work"     onclick="selectNewCat('work')">💼 Work</button>
-            <button class="cat-btn"        data-cat="personal" onclick="selectNewCat('personal')">🏠 Personal</button>
-          </div>
-          <span class="divider-dot">·</span>
-          <select class="pri-select" id="prioritySelect" onchange="selectPriority(this.value)">
+          <button class="cat-btn active" data-cat="work"     onclick="selectNewCat('work')">💼 <span class="cat-lbl">Work</span></button>
+          <button class="cat-btn"        data-cat="personal" onclick="selectNewCat('personal')">🏠 <span class="cat-lbl">Personal</span></button>
+          <span class="opt-sep"></span>
+          <select class="opt-select" id="prioritySelect" onchange="selectPriority(this.value)">
             <option value="high">🔴 High</option>
-            <option value="medium" selected>🟡 Medium</option>
+            <option value="medium" selected>🟡 Med</option>
             <option value="low">⚪ Low</option>
           </select>
-          <span class="divider-dot">·</span>
+          <span class="opt-sep"></span>
           <input type="date" id="dueDate"/>
-        </div>
-        <div class="options-row" style="margin-top:8px">
-          <span style="font-size:11px;color:var(--muted);font-weight:700;letter-spacing:0.05em">🔁 REPEAT</span>
-          <div style="display:flex;gap:4px">
-            <button class="rec-btn active" data-rec=""        onclick="selectRecurrence('')">None</button>
-            <button class="rec-btn"        data-rec="weekly"  onclick="selectRecurrence('weekly')">Weekly</button>
-            <button class="rec-btn"        data-rec="daily"   onclick="selectRecurrence('daily')">Daily</button>
-            <button class="rec-btn"        data-rec="monthly" onclick="selectRecurrence('monthly')">Monthly</button>
-          </div>
+          <span class="opt-sep"></span>
+          <select class="opt-select" id="recSelect" onchange="selectRecurrence(this.value)">
+            <option value="">🔁 Once</option>
+            <option value="daily">↻ Daily</option>
+            <option value="weekly">↻ Weekly</option>
+            <option value="monthly">↻ Monthly</option>
+          </select>
         </div>
       </div>
 
@@ -574,6 +625,9 @@ li.task-item, .archive-task { animation:slideIn 0.2s ease-out; }
   </div>
 
 </div>
+<!-- Firebase SDK (compat v9) -->
+<script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-app-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-firestore-compat.js"></script>
 <script>
 // ══════════════════════════════════════════════════
 //  THEME (persisted)
@@ -584,7 +638,7 @@ function setTheme(t) {
   localStorage.setItem('todo_theme', t);
 }
 (function initTheme(){
-  const t=localStorage.getItem('todo_theme')||'dark';
+  const t=localStorage.getItem('todo_theme')||'light';
   document.documentElement.setAttribute('data-theme',t);
   document.querySelectorAll('.tpill').forEach(p=>p.classList.toggle('active',p.dataset.theme===t));
 })();
@@ -637,9 +691,11 @@ function loadData(){
   } catch(e){ tasks=[]; archive=[]; nextId=1; }
 }
 function save(){
+  lastLocalSave = Date.now();
   localStorage.setItem(STORAGE_KEY_TASKS,   JSON.stringify(tasks));
   localStorage.setItem(STORAGE_KEY_ARCHIVE, JSON.stringify(archive));
   localStorage.setItem(STORAGE_KEY_NEXTID,  nextId);
+  saveToFirestore();
 }
 
 // ══════════════════════════════════════════════════
@@ -787,7 +843,11 @@ function setFilter(f){
 }
 function selectPriority(p){ newPriority=p; const s=document.getElementById('prioritySelect'); if(s) s.value=p; }
 function selectNewCat(c){ newCategory=c; document.querySelectorAll('.cat-btn').forEach(b=>b.classList.toggle('active',b.dataset.cat===c)); }
-function selectRecurrence(r){ newRecurrence=r; document.querySelectorAll('.rec-btn').forEach(b=>b.classList.toggle('active',b.dataset.rec===r)); }
+function selectRecurrence(r){
+  newRecurrence=r;
+  document.querySelectorAll('.rec-btn').forEach(b=>b.classList.toggle('active',b.dataset.rec===r));
+  const rs=document.getElementById('recSelect'); if(rs) rs.value=r;
+}
 
 // ══════════════════════════════════════════════════
 //  DRAG & DROP
@@ -921,6 +981,117 @@ function renderArchive(){
 }
 
 // ══════════════════════════════════════════════════
+//  FIREBASE CONFIG — fill in your project details
+//  Get these from: Firebase Console → Project Settings → Your apps
+// ══════════════════════════════════════════════════
+const FIREBASE_CONFIG = {
+  apiKey:            "REPLACE_WITH_YOUR_API_KEY",
+  authDomain:        "REPLACE_WITH_YOUR_AUTH_DOMAIN",
+  projectId:         "REPLACE_WITH_YOUR_PROJECT_ID",
+  storageBucket:     "REPLACE_WITH_YOUR_STORAGE_BUCKET",
+  messagingSenderId: "REPLACE_WITH_YOUR_MESSAGING_SENDER_ID",
+  appId:             "REPLACE_WITH_YOUR_APP_ID"
+};
+
+// ══════════════════════════════════════════════════
+//  SYNC — KEY MANAGEMENT
+// ══════════════════════════════════════════════════
+function generateSyncCode() {
+  const seg = () => Math.random().toString(36).substring(2,5);
+  return `${seg()}-${seg()}-${seg()}`;
+}
+function getSyncCode() {
+  let code = localStorage.getItem('todo_sync_code');
+  if (!code) { code = generateSyncCode(); localStorage.setItem('todo_sync_code', code); }
+  return code;
+}
+function copySyncCode() {
+  const code = document.getElementById('syncCodeDisplay').textContent;
+  navigator.clipboard.writeText(code).then(() => {
+    const btn = document.getElementById('syncCopyBtn');
+    btn.textContent = 'Copied!'; btn.style.color = 'var(--green)';
+    setTimeout(() => { btn.textContent = 'Copy'; btn.style.color = ''; }, 1800);
+  });
+}
+function toggleSyncPanel() {
+  const p = document.getElementById('syncPanel');
+  p.style.display = p.style.display === 'none' ? 'flex' : 'none';
+  if (p.style.display !== 'none') document.getElementById('syncCodeInput').focus();
+}
+function applySyncCode() {
+  const raw = document.getElementById('syncCodeInput').value.trim().toLowerCase();
+  if (!raw) return;
+  if (!confirm(`Connect to sync code "${raw}"?\n\nThis will replace the tasks on this device with the tasks from that code.`)) return;
+  localStorage.setItem('todo_sync_code', raw);
+  location.reload();
+}
+
+// ══════════════════════════════════════════════════
+//  FIREBASE — INIT & REAL-TIME SYNC
+// ══════════════════════════════════════════════════
+let db = null;
+let syncCode = getSyncCode();
+let lastLocalSave = 0;
+let unsubscribeSync = null;
+
+function setSyncStatus(status) {
+  // status: 'offline' | 'connected' | 'syncing' | 'error'
+  const dot = document.getElementById('syncDot');
+  if (!dot) return;
+  dot.className = 'sync-dot' + (status !== 'offline' ? ' ' + status : '');
+}
+
+function saveToFirestore() {
+  if (!db) return;
+  setSyncStatus('syncing');
+  db.collection('sync').doc(syncCode).set({
+    tasks, archive, nextId, updatedAt: lastLocalSave
+  }).then(() => setSyncStatus('connected'))
+    .catch(() => setSyncStatus('error'));
+}
+
+function initSync() {
+  // Show sync code in bar
+  document.getElementById('syncCodeDisplay').textContent = syncCode;
+
+  // Check if Firebase is configured
+  const cfg = FIREBASE_CONFIG;
+  if (!cfg.apiKey || cfg.apiKey.startsWith('REPLACE')) {
+    setSyncStatus('offline');
+    return; // graceful offline mode — app works fine with just localStorage
+  }
+
+  try {
+    if (!firebase.apps.length) firebase.initializeApp(cfg);
+    db = firebase.firestore();
+    setSyncStatus('syncing');
+
+    // Real-time listener — fires whenever another device saves
+    unsubscribeSync = db.collection('sync').doc(syncCode).onSnapshot(snap => {
+      if (!snap.exists) { setSyncStatus('connected'); return; }
+      const remote = snap.data();
+      // Only apply remote data if it's newer than our last local save
+      if (remote.updatedAt && remote.updatedAt > lastLocalSave) {
+        tasks   = remote.tasks   || [];
+        archive = remote.archive || [];
+        nextId  = remote.nextId  || 1;
+        localStorage.setItem(STORAGE_KEY_TASKS,   JSON.stringify(tasks));
+        localStorage.setItem(STORAGE_KEY_ARCHIVE, JSON.stringify(archive));
+        localStorage.setItem(STORAGE_KEY_NEXTID,  nextId);
+        render();
+        updateArchiveCount();
+      }
+      setSyncStatus('connected');
+    }, () => setSyncStatus('error'));
+
+  } catch(e) {
+    console.warn('Firebase init error:', e);
+    db = null;
+    setSyncStatus('error');
+  }
+}
+
+// ══════════════════════════════════════════════════
 //  PWA — INSTALL BANNER
 // ══════════════════════════════════════════════════
 let deferredPrompt=null;
@@ -949,11 +1120,33 @@ if('serviceWorker' in navigator){
 }
 
 // ══════════════════════════════════════════════════
+//  DICTATION
+// ══════════════════════════════════════════════════
+function startDictation(){
+  const SR=window.SpeechRecognition||window.webkitSpeechRecognition;
+  if(!SR){ alert("Voice input isn't supported in this browser.\nTry Chrome (Android) or Safari (iOS 14.5+)."); return; }
+  const btn=document.getElementById('micBtn');
+  if(btn.classList.contains('listening')) return;
+  const rec=new SR();
+  rec.lang='en-GB'; rec.continuous=false; rec.interimResults=false;
+  btn.classList.add('listening');
+  rec.onresult=e=>{
+    document.getElementById('taskInput').value=e.results[0][0].transcript;
+    btn.classList.remove('listening');
+    document.getElementById('taskInput').focus();
+  };
+  rec.onerror=()=>btn.classList.remove('listening');
+  rec.onend  =()=>btn.classList.remove('listening');
+  rec.start();
+}
+
+// ══════════════════════════════════════════════════
 //  KEYBOARD + INIT
 // ══════════════════════════════════════════════════
 document.getElementById('taskInput').addEventListener('keydown',e=>{ if(e.key==='Enter') addTask(); });
 render();
 updateArchiveCount();
+initSync();
 </script>
 </body>
 </html>
