@@ -436,6 +436,14 @@ li.task-item.drag-over            { border-top:1px solid var(--accent); backgrou
 
 /* ── ARCHIVE VIEW ── */
 #archiveList { list-style:none; padding:4px 0; min-height:60px; }
+.task-search { padding:14px 18px 10px; border-bottom:1px solid var(--border); }
+.task-search input {
+  width:100%; background:var(--input-bg); border:1px solid var(--border-hi);
+  border-radius:10px; padding:9px 13px; font-size:13px; outline:none;
+  font-family:inherit; color:var(--ink); transition:border-color 0.2s;
+}
+.task-search input::placeholder { color:var(--muted); }
+.task-search input:focus { border-color:var(--accent); box-shadow:0 0 0 3px var(--accent-glow); }
 .archive-search { padding:14px 18px 10px; border-bottom:1px solid var(--border); }
 .archive-search input {
   width:100%; background:var(--input-bg); border:1px solid var(--border-hi);
@@ -588,6 +596,10 @@ li.task-item, .archive-task { animation:slideIn 0.2s ease-out; }
             <option value="monthly">↻ Monthly</option>
           </select>
         </div>
+      </div>
+
+      <div class="task-search">
+        <input type="text" id="taskSearch" placeholder="Search tasks…" oninput="render()" autocomplete="off"/>
       </div>
 
       <ul id="taskList"></ul>
@@ -888,15 +900,19 @@ function timeAgo(iso){
 // ══════════════════════════════════════════════════
 function render(){
   const list=document.getElementById('taskList');
+  const query=(document.getElementById('taskSearch')?.value||'').toLowerCase();
   const visible=tasks.filter(t=>{
     const mc=catFilter==='all'||t.category===catFilter;
     const ms=statusFilter==='all'||(statusFilter==='active'&&!t.done)||(statusFilter==='recurring'&&t.recurrence);
-    return mc&&ms;
+    const mq=!query||t.text.toLowerCase().includes(query);
+    return mc&&ms&&mq;
   });
   if(!visible.length){
     const e={all:'📋',work:'💼',personal:'🏠'};
     const m={all:'Add a task above to get started',work:'No work tasks yet',personal:'No personal tasks yet',recurring:'No recurring tasks yet'};
-    list.innerHTML=`<li class="empty"><div class="empty-icon">${e[catFilter]||'📋'}</div>${m[statusFilter]||m.all}</li>`;
+    const emptyMsg=query?'No tasks match your search':m[statusFilter]||m.all;
+    const emptyIcon=query?'🔍':e[catFilter]||'📋';
+    list.innerHTML=`<li class="empty"><div class="empty-icon">${emptyIcon}</div>${emptyMsg}</li>`;
   } else {
     list.innerHTML=visible.map(task=>{
       const p  =PRIORITIES[task.priority]||PRIORITIES.medium;
